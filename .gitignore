@@ -1,0 +1,23 @@
+# R specific
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Output files
+*.html
+*.pdf
+*.docx
+
+# Large data files
+*.xlsx
+*.csv
+*.json
+
+# Temporary files
+*.tmp
+*~

@@ -1,0 +1,353 @@
+---
+title: "project"
+author: "박동균"
+date: "2024-05-23"
+output: html_document
+---
+
+506101_20240523131040585_excel.xlsx
+```{r}
+#install.packages("tsibble")
+library(ggplot2)
+library(dplyr)
+library(gganimate)
+library(tidyverse)
+library(tsibble)
+#install.packages("tsibble")
+```
+
+# 출처: 통계청, 「인구동향조사」
+# *자료 : 통계청, 「인구동향조사」 각 연도
+# 주석: 1) 합계출산율은 가임기 여성(15-49세) 1명이 가임기간(15-49세) 동안 낳을 것으로 예상되는 평균 출생아수임.
+```{r}
+library(readxl)
+sum_birthrate <- read_excel("506101_20240523131040585_excel.xlsx")
+```
+
+
+# 전처리 
+```{r}
+data1 = sum_birthrate[2:3,]
+colnames(data1) <- as.character(unlist(data1[1,]))
+data1 <- data1[-1, ]
+data1
+
+data_melt <- data1 %>%
+  reshape2::melt(id.vars = NA, 
+                 variable.name = "연도",
+                 value.name = "출산율")
+data_melt = data_melt[-1] 
+data_melt
+```
+
+
+
+
+```{r}
+data_melt$연도 <- as.numeric(as.character(data_melt$연도))
+data_melt$출산율= as.numeric(data_melt$출산율)
+data_melt
+
+ggplot(data_melt, aes(x = 연도, y = 출산율)) +
+   geom_line()+
+  theme_minimal()+
+  theme(legend.position='bottom')+ 
+  transition_reveal(연도)
+```
+
+
+
+
+
+
+
+
+
+# 연령별 출산율
+출처: 통계청, 「인구동향조사」
+[단위 : 해당 연령 여자 인구 1천명당 명]
+```{r}
+library(readxl)
+age_birthrate <- read_excel("H000201_20240523133739046_excel.xlsx")
+
+data2 = age_birthrate[2:9,]
+data2
+colnames(data2) <- as.character(unlist(data2[1,]))
+data2 <- data2[-1, ]
+data2
+
+
+data_melt2 <- data2 %>%
+  reshape2::melt(id.vars = NA, 
+                 variable.name = "연도",
+                 value.name = "출산율")
+
+data_melt2
+colnames(data_melt2) <- c("연령대","연도", "출산율")
+data_melt2
+
+```
+
+
+
+```{r}
+data_melt2$연도 <- as.numeric(as.character(data_melt2$연도))
+data_melt2$출산율= as.numeric(data_melt2$출산율)
+data_melt2
+
+ggplot(data_melt2, aes(x = 연도, y = 출산율, fill = 연령대)) +
+  geom_line()+
+  theme_minimal()+
+  theme(legend.position='bottom')+ 
+   transition_time(연도) +
+  labs(title = 'Year: {frame_time}') +
+  transition_reveal(연도)
+```
+
+
+
+# 지역별 인구 및 인구밀도_20240523144105.xlsx
+# 단위 : 천/명 
+출처: 통계청「장래인구추계 시도편 : 2020-2050」, 국토교통부「지적통계」
+
+통계공표시기: 작성기준년도 5년
+
+주석: * 수도권 : 서울, 인천, 경기
+* 통계청『장래인구추계 시도편 : 2020-2050』의 시도별 인구와 국토교통부『지적통계』의 시도별 국토면적을 기초로 작성
+* 시도별 장래인구추계는 2022년에 작성된 자료임
+```{r}
+#install.packages("readxl")
+library(readxl)
+#install.packages("dplyr")
+library(dplyr)
+#install.packages("reshape2")
+library(reshape2)
+kor_pop <- read_excel("지역별 인구 및 인구밀도_20240523144105.xlsx")
+kor_pop
+
+data3 = kor_pop[28:48,]
+data3
+
+colnames(data3) <- as.character(unlist(data3[1,]))
+data3 <- data3[-1, ]
+data3
+
+
+data_melt3 <- data3 %>%
+  reshape2::melt(id.vars = NA, 
+                 variable.name = "연도",
+                 value.name = "인구")
+
+colnames(data_melt3) <- c("지역","연도", "인구")
+data_melt3
+
+data_melt3 <- data_melt3 %>%
+  filter(!is.na(지역)) %>% 
+  filter(!지역 == "계") %>% 
+  filter(!지역 == "수도권")
+
+
+data_melt3
+```
+
+```{r}
+# NA 및 "-" 값을 0으로 대체
+data_melt3$인구[data_melt3$인구 == "-" | is.na(data_melt3$인구)] <- "0"
+data_melt3
+
+# 인구를 숫자로 변환
+data_melt3$인구 <- as.numeric(gsub(",", "", as.character(data_melt3$인구)))
+data_melt3
+```
+
+
+
+
+```{r}
+# install.packages("ggplot2")
+library(ggplot2)
+ggplot(data_melt3, aes(x = 연도, y = 지역, fill = 인구)) +
+  geom_tile(color = "white", linewidth = 0.25) +
+  theme(text = element_text(family = "나눔고딕"))
+
+
+```
+
+서울 = (37.566723, 126.978155)
+부산 = (35.179751, 129.074891)
+대구 = (35.871641, 128.601517)
+인천 = (37.456050, 126.705251)
+
+광주 = (35.160163, 126.851302)
+대전 = (36.349934, 127.384789)
+울산 = (35.539690, 129.311442)
+세종 = (36.479709, 127.288824)
+
+경기 = (37.288782, 127.052375)
+강원 = (37.885606, 127.729788)
+충북 = (36.635974, 127.491066)
+충남 = (36.658553, 126.671390)
+
+전북 = (35.819879, 127.108526)
+전남 = (34.815959, 126.462748)
+경북 = (36.575932, 128.505507)
+경남 = (35.238139, 128.691248)   
+제주 = (33.489134, 126.498111)   
+
+
+```{r}
+unique(data_melt3$지역)
+geo_data = data.frame(지역 = c("서울","부산","대구","인천","광주",
+                             "대전","울산","세종","경기","강원",
+                             "충북","충남","전북","전남","경북",
+                             "경남","제주"),
+                      위도 = c(37.566723, 35.179751, 
+                             35.871641, 37.456050,
+                             35.160163, 36.349934,
+                             35.539690, 36.479709,
+                             37.288782, 37.885606,
+                             36.635974, 36.658553,
+                             35.819879, 34.815959,
+                             36.575932, 35.238139,
+                             33.489134),
+                      경도 = c(126.978155, 129.074891,
+                             128.601517, 126.705251,
+                             126.851302, 127.384789,
+                             129.311442, 127.288824,
+                             127.052375, 127.729788,
+                             127.491066, 126.671390,
+                             127.108526, 126.462748,
+                             128.505507, 128.691248,
+                             126.498111)
+                      )
+                      
+geo_data     
+data_melt3
+
+data_melt3_join = left_join(data_melt3, geo_data)
+data_melt3_join
+
+```
+```{r}
+data_melt3_join$경도 <- as.numeric(as.character(data_melt3_join$경도))
+data_melt3_join$위도 <- as.numeric(as.character(data_melt3_join$위도))
+data_melt3_join
+
+data_melt3_join$연도 <- as.numeric(as.character(data_melt3_join$연도))
+data_melt3_join
+```
+
+
+
+```{r}
+### Packages
+library(dplyr)
+#install.packages("ggmap")
+library(ggmap)
+register_google(key='AIzaSyAWsq--BDMfDl9RnG3LE3WKA5qpUbcof3M')
+# 경도와 위도로 표시할 중심 좌표
+center_lon_lat <- c(128.25,35.95)
+
+
+# 지도 다운로드
+krMap <- get_googlemap(center_lon_lat, zoom = 7)
+```
+
+
+
+
+```{r}
+data_melt3_join$인구_scaled <- data_melt3_join$인구 * 100^6
+data_melt3_join
+
+
+  
+  
+p <- ggmap(krMap) +
+  geom_point(data = data_melt3_join, aes(x = 경도, y = 위도, size = 인구_scaled, color = 지역), alpha = 0.7) +
+  scale_size_continuous(range = c(10, 30), name = "인구수") +  # 범위를 조정하여 포인트의 크기를 더 크게 설정
+  labs(title = "년도별 인구수 시각화", x = "경도", y = "위도") +
+  scale_color_distiller(palette = "Blues", type = 'seq', na.value = "grey60") +  # 색상 팔레트 설정
+  theme_minimal() +
+  theme(legend.position = "left") +
+  transition_time(연도) +
+  labs(title = "년도별 인구수 시각화: {round(frame_time)}년") + 
+  theme(text = element_text(family = "나눔고딕"))
+
+
+# 애니메이션 저장
+anim <- animate(p, nframes = 100, fps = 5, renderer = gifski_renderer("population_animation.gif"))
+
+# 애니메이션 보기
+anim
+```
+
+
+```{r}
+# 강조할 색상 설정
+highlight_color <- "red"
+default_colors <- "grey60"
+
+# 각 지역에 대한 색상 지정
+data_melt3_join$color <- ifelse(data_melt3_join$지역 == "경기", "blue", default_colors)
+data_melt3_join$color <- ifelse(data_melt3_join$지역 == "서울", "gray2", default_colors)
+data_melt3_join$color <- ifelse(data_melt3_join$지역 == "경기", highlight_color, default_colors)
+data_melt3_join$color <- ifelse(data_melt3_join$지역 == "경기", highlight_color, default_colors)
+data_melt3_join$color <- ifelse(data_melt3_join$지역 == "경기", highlight_color, default_colors)
+data_melt3_join$color <- ifelse(data_melt3_join$지역 == "경기", highlight_color, default_colors)
+
+# ggplot을 사용하여 지도에 포인트 추가 (인구 크기 조정)
+p <- ggmap(krMap) +
+  geom_point(data = data_melt3_join, aes(x = 경도, y = 위도, size = 인구_scaled, color = color), alpha = 0.7) +
+  scale_size_continuous(range = c(10, 30), name = "인구수") +  
+  # 범위를 조정하여 포인트의 크기를 더 크게 설정
+  labs(title = "년도별 인구수 시각화", x = "경도", y = "위도") +
+  scale_color_identity() +  # 직접 지정한 색상 사용
+  theme_minimal() +
+    theme(
+    legend.position = "right",
+    text = element_text(family = "나눔고딕")
+  ) +
+  transition_time(연도) +
+  labs(title = "년도별 인구수 시각화: {round(frame_time)}년")
+```
+
+
+
+```{r}
+library(RColorBrewer)
+# 기본 팔레트 설정
+palette <- brewer.pal(9, "Blues")
+
+# '경기'를 강조할 색상 설정 (가장 밝은 파란색)
+highlight_color <- palette[9]
+
+# '경기'와 나머지 지역에 대한 색상 매핑
+data_melt3_join$color <- ifelse(data_melt3_join$지역 == "경기", highlight_color, palette[4])
+
+# ggplot을 사용하여 지도에 포인트 추가 (인구 크기 조정)
+p <- ggmap(krMap) +
+  geom_point(data = data_melt3_join, aes(x = 경도, y = 위도, size = 인구_scaled, color = color), alpha = 0.7) +
+  scale_size_continuous(range = c(10, 30), name = "인구수") +  # 범위를 조정하여 포인트의 크기를 더 크게 설정
+  labs(title = "년도별 인구수 시각화", x = "경도", y = "위도") +
+  scale_color_identity() +  # 직접 지정한 색상 사용
+  theme_minimal() +
+  theme(
+    text = element_text(family = "나눔고딕"),
+    legend.title = element_text(hjust = 0.5),  # 범례 제목 정렬: 0~1
+    legend.text = element_text(hjust = 1),     # 범례 레이블 정렬: 0~1
+    legend.position = c(0.85, 0.2)             # 범례의 위치
+  ) +
+  transition_time(연도) +
+  labs(title = "년도별 인구수 시각화: {round(frame_time)}년")
+
+# 애니메이션 생성 및 저장
+anim <- animate(p, nframes = 100, fps = 5, renderer = gifski_renderer("population_animation_scaled.gif"))
+
+# 애니메이션 보기
+anim
+```
+
+
+
+

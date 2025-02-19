@@ -1,0 +1,11 @@
+ggplot2
+dplyr
+gganimate
+tidyverse
+tsibble
+readxl
+cowplot
+sf
+geojsonsf
+reshape2
+scales
