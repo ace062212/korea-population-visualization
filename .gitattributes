@@ -11,7 +11,14 @@
 *.md linguist-documentation
 *.txt linguist-documentation
 *.html linguist-documentation
+*.ipynb linguist-documentation
+
+# Jupyter notebooks
+*.ipynb linguist-vendored
+notebooks/* linguist-vendored
 
 # Ignore specific directories for language statistics
 data/* linguist-vendored
 output/* linguist-vendored
+demo/* linguist-vendored
+test/* linguist-vendored
