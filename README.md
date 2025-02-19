@@ -111,6 +111,11 @@ korea-population-visualization/
 - 박동균 (Donggyun Park)
 - 데이터 시각화 프로젝트 (2024)
 
+  ## 📞 Contact
+- Email: ace062212@gmail.com
+- GitHub: [ace062212](https://github.com/ace062212)
+
+
 ## 📝 라이선스
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
