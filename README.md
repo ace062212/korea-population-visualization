@@ -1,15 +1,12 @@
-<div align="center">
-  <h1>대한민국 인구동향 시각화 프로젝트</h1>
-  <img src="output/figures/p4.gif" width="600px">
+# 대한민국 인구동향 시각화 프로젝트
 
-  ![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
-  ![ggplot2](https://img.shields.io/badge/ggplot2-276DC3?style=for-the-badge&logo=r&logoColor=white)
-  ![Data Visualization](https://img.shields.io/badge/Data_Visualization-FF6384?style=for-the-badge)
-  
-  [![GitHub stars](https://img.shields.io/github/stars/ace062212/korea-population-visualization?style=social)](https://github.com/ace062212/korea-population-visualization/stargazers)
-  ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ace062212/korea-population-visualization)
-  ![GitHub last commit](https://img.shields.io/github/last-commit/ace062212/korea-population-visualization)
-</div>
+![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
+![ggplot2](https://img.shields.io/badge/ggplot2-276DC3?style=for-the-badge&logo=r&logoColor=white)
+![Data Visualization](https://img.shields.io/badge/Data_Visualization-FF6384?style=for-the-badge)
+
+[![GitHub stars](https://img.shields.io/github/stars/ace062212/korea-population-visualization?style=social)](https://github.com/ace062212/korea-population-visualization/stargazers)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ace062212/korea-population-visualization)
+![GitHub last commit](https://img.shields.io/github/last-commit/ace062212/korea-population-visualization)
 
 ## 📊 프로젝트 개요
 본 프로젝트는 대한민국의 인구 변화를 다각도로 분석하고 시각화한 것입니다. 출산율 변화부터 지역별 인구 분포, 연령별 인구 구조까지 다양한 측면에서 한국의 인구 동향을 탐구했습니다.
