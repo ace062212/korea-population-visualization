@@ -1,7 +1,5 @@
 <div align="center">
   <h1>대한민국 인구동향 시각화 프로젝트</h1>
-  <img src="output/figures/p4.gif" width="600px">
-
   ![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
   ![ggplot2](https://img.shields.io/badge/ggplot2-276DC3?style=for-the-badge&logo=r&logoColor=white)
   ![Data Visualization](https://img.shields.io/badge/Data_Visualization-FF6384?style=for-the-badge)
