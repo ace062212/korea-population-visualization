@@ -1,29 +1,46 @@
-# 대한민국 인구동향 시각화 프로젝트
+<div align="center">
+  <h1>대한민국 인구동향 시각화 프로젝트</h1>
+  <img src="output/figures/p4.gif" width="600px">
+
+  ![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
+  ![ggplot2](https://img.shields.io/badge/ggplot2-276DC3?style=for-the-badge&logo=r&logoColor=white)
+  ![Data Visualization](https://img.shields.io/badge/Data_Visualization-FF6384?style=for-the-badge)
+  
+  [![GitHub stars](https://img.shields.io/github/stars/ace062212/korea-population-visualization?style=social)](https://github.com/ace062212/korea-population-visualization/stargazers)
+  ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ace062212/korea-population-visualization)
+  ![GitHub last commit](https://img.shields.io/github/last-commit/ace062212/korea-population-visualization)
+</div>
 
 ## 📊 프로젝트 개요
 본 프로젝트는 대한민국의 인구 변화를 다각도로 분석하고 시각화한 것입니다. 출산율 변화부터 지역별 인구 분포, 연령별 인구 구조까지 다양한 측면에서 한국의 인구 동향을 탐구했습니다.
 
 ## 📈 주요 분석 내용
 
+<p align="center">
+  <img src="output/figures/p1.gif" width="45%">
+  <img src="output/figures/p2.gif" width="45%">
+</p>
+
 ### 1. 출산율 분석
 - 연도별 합계출산율 추이 분석
 - 애니메이션을 통한 출산율 변화 시각화
-![출산율 변화](output/figures/p1.gif)
 
 ### 2. 연령별 출산율
 - 연령대별 출산율 변화 분석
 - 시계열 데이터를 통한 연령별 출산 패턴 변화
-![연령별 출산율](output/figures/p2.gif)
+
+<p align="center">
+  <img src="output/figures/p3.gif" width="45%">
+  <img src="output/figures/p4.gif" width="45%">
+</p>
 
 ### 3. 지역별 인구 분포
 - 전국 시도별 인구 분포 현황
 - 지도 시각화를 통한 지역별 인구 변화
-![지역별 인구](output/figures/p3.gif)
 
 ### 4. 인구 피라미드
 - 성별, 연령별 인구 구조 분석
 - 시간에 따른 인구 구조 변화
-![인구 피라미드](output/figures/p4.gif)
 
 ## 📑 분석 자료
 ### 1. 상세 분석 보고서
@@ -35,12 +52,6 @@
 프로젝트의 상세한 설명과 분석 과정을 담은 발표 영상입니다:
 
 🎥 [프로젝트 발표 영상 보기](https://drive.google.com/file/d/1234567890/view?usp=sharing)
-
-> 💡 발표 영상에서 다루는 내용:
-> - 프로젝트 배경 및 목적
-> - 데이터 수집 및 분석 방법
-> - 주요 발견점 설명
-> - 시각화 결과 해석
 
 ## 🛠 사용 기술
 - R 4.x.x
@@ -79,11 +90,8 @@ korea-population-visualization/
 
 ## 📊 데이터 출처
 - 통계청 「인구동향조사」 (2021-2023)
-  - 출산율 및 인구동향 기초 데이터
 - 통계청 「장래인구추계」 (2020-2050)
-  - 연령별, 성별 인구구조 데이터
 - 국토교통부 「지적통계」 (2023)
-  - 지역별 인구밀도 관련 데이터
 
 ## 🔍 주요 발견점
 1. 지속적인 출산율 감소 추세
@@ -99,10 +107,26 @@ korea-population-visualization/
    - 인구 피라미드의 역삼각형화
    - 생산가능인구 감소 추세
 
+## 🤝 기여하기
+이 프로젝트에 기여하고 싶으시다면:
+1. 이 저장소를 Fork하세요
+2. 새로운 Branch를 만드세요 (`git checkout -b feature/AmazingFeature`)
+3. 변경사항을 Commit하세요 (`git commit -m 'Add some AmazingFeature'`)
+4. Branch에 Push하세요 (`git push origin feature/AmazingFeature`)
+5. Pull Request를 보내주세요
+
 ## 👥 제작자
+<p align="center">
+  <a href="mailto:pdg0526@naver.com">
+    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"/>
+  </a>
+  <a href="https://github.com/ace062212">
+    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"/>
+  </a>
+</p>
+
 - 박동균 (Donggyun Park)
 - 데이터 시각화 프로젝트 (2024)
 
 ## 📝 라이선스
 This project is licensed under the MIT License - see the LICENSE.md file for details
-
